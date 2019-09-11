@@ -9,7 +9,7 @@
   <groupId>org.asynchttpclient</groupId>
   <artifactId>async-http-client-project</artifactId>
   <name>Asynchronous Http Client Project</name>
-  <version>2.5.3-SNAPSHOT</version>
+  <version>${project.version}</version>
   <packaging>pom</packaging>
   <description>
     The Async Http Client (AHC) library's purpose is to allow Java
@@ -77,6 +77,11 @@
         <artifactId>maven-scm-manager-plexus</artifactId>
         <version>1.6</version>
       </extension>
+      <extension>
+        <groupId>com.gkatzioura.maven.cloud</groupId>
+        <artifactId>s3-storage-wagon</artifactId>
+        <version>1.8</version>
+       </extension>
     </extensions>
     <defaultGoal>install</defaultGoal>
     <plugins>
@@ -151,6 +156,30 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -194,19 +223,18 @@
       </properties>
     </profile>
   </profiles>
-  <distributionManagement>
-    <repository>
-      <id>sonatype-nexus-staging</id>
-      <name>Sonatype Release</name>
-      <url>http://oss.sonatype.org/service/local/staging/deploy/maven2
-      </url>
-    </repository>
-    <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <name>sonatype-nexus-snapshots</name>
-      <url>${distMgmtSnapshotsUrl}</url>
-    </snapshotRepository>
-  </distributionManagement>
+   <distributionManagement>
+     <repository>
+       <id>dist-release</id>
+       <name>dist-release</name>
+       <url>${distMgmtReleasesUrl}</url>
+     </repository>
+     <snapshotRepository>
+       <id>dist-snapshots</id>
+       <name>dist-snapshots</name>
+       <url>${distMgmtSnapshotsUrl}</url>
+     </snapshotRepository>
+   </distributionManagement>
   <modules>
     <module>netty-utils</module>
     <module>client</module>
@@ -398,7 +426,10 @@
     </dependency>
   </dependencies>
   <properties>
+    <version></version>
+    <project.version>2.5.3-SNAPSHOT</project.version>
     <distMgmtSnapshotsUrl>http://oss.sonatype.org/content/repositories/snapshots</distMgmtSnapshotsUrl>
+    <distMgmtReleasesUrl>http://oss.sonatype.org/content/repositories/releases</distMgmtReleasesUrl>
     <surefire.redirectTestOutputToFile>true</surefire.redirectTestOutputToFile>
     <source.property>1.8</source.property>
     <target.property>1.8</target.property>

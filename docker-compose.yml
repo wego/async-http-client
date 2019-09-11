@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  async-http-client:
+    build:
+      context: .
+      args:
+        VERSION: ${REVISION:?REVISION}
+    image: wego/async-http-client
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:?AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:?AWS_DEFAULT_REGION}
+      REPO_URL: ${REPO_URL:?REPO_URL}
