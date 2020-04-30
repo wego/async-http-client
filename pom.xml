@@ -164,7 +164,7 @@
         <configuration>
           <manifestLocation>META-INF</manifestLocation>
           <instructions>
-            <Bundle-Version>$(replace;$(project.version);-SNAPSHOT;.$(tstamp;yyyyMMdd-HHmm))</Bundle-Version>
+            <Bundle-Version>2.8.1-SNAPSHOT</Bundle-Version>
             <Bundle-Vendor>The AsyncHttpClient Project</Bundle-Vendor>
             <Import-Package>javax.activation;version="[1.1,2)", *</Import-Package>
           </instructions>
